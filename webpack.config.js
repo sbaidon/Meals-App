@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
+require('dotenv').config({ path: 'variables.env' })
+
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -57,7 +59,20 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: "'production'",
+      },
+      FIREBASE_KEY: JSON.stringify(process.env.FIREBASE_KEY),
+      AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
+      DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
+      PROJECT_ID: JSON.stringify(process.env.PROJECT_ID),
+      STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET),
+      MESSAGING_SENDER_ID: JSON.stringify(process.env.MESSAGING_SENDER_ID)
+    })
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
