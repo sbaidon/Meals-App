@@ -1,12 +1,13 @@
 <template>
-  <div class="columns is-multiline">
+  <div class="columns is-paddingless is-marginless is-multiline column is-12">
     <div class="field column is-12">
-      <p class="control has-icons-left has-icons-right">
+      <label class="label has-text-white">Restaurant</label>
+      <div class="control has-icons-left">
         <input id="autocomplete" class="input" type="text" placeholder="Search">
-        <span class="icon is-small is-right">
+        <span class="icon is-small is-left">
           <i class="fa fa-search"></i>
         </span>
-      </p>
+      </div>
     </div> 
     <div class="column is-12">
       <div id="map"></div>
@@ -143,5 +144,9 @@ export default {
 <style lang='sass'>
   #map 
     height: 300px
+    width: 100%
+    margin-bottom: 1rem
+
+  .container
     width: 100%
 </style>

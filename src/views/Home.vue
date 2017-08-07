@@ -1,9 +1,9 @@
 <template>
- <div class="container is-fluid">
+  <div class="container is-fluid">
     <div class="navbar columns is-marginless">
       <div class="column has-text-centered">
         <figure class="image is-64x64">
-          <img  class="image--round" :src="user.photoURL">
+          <img class="image--round" :src="user.photoURL">
         </figure>
       </div>
     </div>
@@ -13,20 +13,22 @@
         <a class="button is-warning" @click="isModalOpen = true">Add a new order</a>
       </div>
     </div>
-    <modal @closeModal="isModalOpen = false" :isOpen="isModalOpen" v-if="isModalOpen">
+    <modal @closeModal="isModalOpen = false" v-if="isModalOpen">
       <map-view></map-view>
-      <div class="field full-width">
-        <p class="control">
-            <input  class="input" type="text" placeholder="Meal">
-        </p>
-      </div> 
-      <div class="field full-width">
-        <p class="control">
-          <input  class="input" type="number" placeholder="Price">
-        </p>
+      <div class="field column is-6">
+        <label class="label has-text-white">Meal</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Meal">
+        </div>
       </div>
-      <div class="field full-width">
-        <a class="button is-warning" @click="submitOrder">Submit Order</a>
+      <div class="field column is-6">
+        <label class="label has-text-white">Price</label>
+        <div class="control">
+          <input class="input" type="number" placeholder="Price">
+        </div>
+      </div>
+      <div class="field column is-12 has-text-centered">
+        <a class="button is-warning is-fullwidth" @click="submitOrder">Submit Order</a>
       </div>
     </modal>
     <router-view></router-view>

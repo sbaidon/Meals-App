@@ -26,7 +26,7 @@ export default {
       .then(({ user: { uid, email, photoURL, refreshToken, displayName } }) => {
         commit('SET_USER', { user: { uid, photoURL, refreshToken, displayName } })
         return Promise.resolve()
-      }) 
+      })
       .catch((error) => {
         return Promise.reject(error)
       })

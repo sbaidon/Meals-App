@@ -1,7 +1,7 @@
 <template>
-  <div class="modal" :class="{ 'is-active': isOpen }">
+  <div class="modal is-active">
     <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-content">
+    <div class="modal-content columns is-multiline">
       <slot></slot> 
     </div>
     <button class="modal-close is-large" @click="closeModal"></button>
@@ -12,7 +12,6 @@
 
 export default {
   name: 'modal',
-  props: ['isOpen'],
   data() {
       return {
 
