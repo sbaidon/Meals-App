@@ -30,13 +30,13 @@
 				</p>
 			</div>
 			<div class="field">
-				<button class="button is-success" @click.prevent="login">{{ mode }}</button>
+				<button class="button is-success" @click.prevent="login(email, password)">{{ mode }}</button>
 			</div>
 			<div class="field" v-if="!isNewUser">
-				<button class="button is-danger" @click="socialLogin">Google</button>
+				<button class="button is-danger" @click="googleLogin()">Google</button>
 			</div>
 			<div class="field" v-if="!isNewUser">
-				<button class="button is-info" @click="socialLogin">Github</button>
+				<button class="button is-info" @click="githubLogin()">Github</button>
 			</div>
 			<span> {{ accountMessage }} 
         <a @click="isNewUser = !isNewUser"> {{ mode }}</a>
@@ -52,7 +52,10 @@ export default {
 	name: 'login',
 	data() {
 		return {
-			isNewUser: false
+      isNewUser: false,
+      password: '',
+      email: '',
+      name: '',
 		}
 	},
 	computed: {
@@ -65,11 +68,18 @@ export default {
 	},
 	methods: {
 		login(email, password) {
-      
+      this.$store.dispatch('login', { email, password })
+      .then(() => this.$router.push('/home'))
+      .catch(() => console.log('There was an error'))
 		},
-		socialLogin(provider) {
-			
-		}
+		googleLogin() {
+      this.$store.dispatch('googleLogin')	
+      .then(() => this.$router.push('/home'))
+    },
+    githubLogin() {
+      this.$store.dispatch('githubLogin')
+      .then(() => this.$router.push('/home'))
+    }
 	}
 }
 </script>
