@@ -35,5 +35,24 @@ export default {
     return api.getNearbyRestaurants()
       .then(result => console.log(result))
       .catch(error => console.log(error))
-  }
+  },
+  submitOrder({ commit, state }, { order, restaurant }) {
+    api.saveOrder(order, state.user.uid)
+    api.saveRestaurant(restaurant)
+  },
+  getOrders({ commit, state }) {
+    api.getOrders((orders) => {
+      commit('SET_ORDERS', { orders }) 
+    })
+  },
+  getUserData({ commit, state }) {
+    api.getUserData(state.user.uid, ({ orders }) => {
+      commit('SET_USER_ORDERS', { orders })
+    })
+  },
+  getRestaurants({ commit, state }) {
+    api.getRestaurants((restaurants) => {
+      commit('SET_RESTAURANTS', { restaurants })
+    })
+  },
 }

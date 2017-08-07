@@ -68,6 +68,7 @@ export default {
         this.removeMarker()
         this.selectedPlace = this.matches.getPlace()
         this.createMarker(this.selectedPlace)
+        this.$emit('placeChanged', this.selectedPlace)
       })
     },
     getLocation() {
