@@ -69,16 +69,16 @@ export default {
 	methods: {
 		login(email, password) {
       this.$store.dispatch('login', { email, password })
-      .then(() => this.$router.push('/home'))
+      .then(() => this.$router.push('/home/active'))
       .catch(() => console.log('There was an error'))
 		},
 		googleLogin() {
       this.$store.dispatch('googleLogin')	
-      .then(() => this.$router.push('/home'))
+      .then(() => this.$router.push('/home/active'))
     },
     githubLogin() {
       this.$store.dispatch('githubLogin')
-      .then(() => this.$router.push('/home'))
+      .then(() => this.$router.push('/home/active'))
     }
 	}
 }
