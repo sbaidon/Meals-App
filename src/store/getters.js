@@ -6,7 +6,7 @@ export default {
       return []
     },
     allOrders(state) {
-      if (state.user.orders) {
+      if (state.orders) {
         return Object.keys(state.orders).map(order => state.orders[order])
       }
     } 

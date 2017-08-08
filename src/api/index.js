@@ -18,8 +18,11 @@ export default {
     firebase.database().ref(`orders/${orderId}`).set(order)
     firebase.database().ref(`users/${uid}/orders/${orderId}`).set(true)
   },
+  updateOrder(order) {
+    firebase.database().ref(`orders/${order.id}`).set(order)
+  },
   saveRestaurant(restaurant) {
-    const { id: restaurantId } = restaurant 
+    const { id: restaurantId } = restaurant
     firebase.database().ref(`restaurants/${restaurantId}`).set(restaurant)
   },
   getOrders(callback) {
@@ -39,5 +42,11 @@ export default {
     restaurants.once('value', (snapshot) => {
       callback(snapshot.val())
     })
-  }
+  },
+  watchData(data, callback) {
+    const ref = firebase.database().ref(data)
+    ref.on('child_added', (snapshot) => {
+      callback(snapshot.key, snapshot.val())
+    }) 
+  },
 }
