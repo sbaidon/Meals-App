@@ -13,6 +13,19 @@ export default {
     const provider = new firebase.auth.GithubAuthProvider()
     return firebase.auth().signInWithPopup(provider)
   },
+  signup(email, password, name) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        return user.updateProfile({
+          displayName: name
+        })
+      })
+      .then(() => Promise.resolve(firebase.auth().currentUser))
+      .catch(error => Promise.reject(error))
+  },
+  logout() {
+    return firebase.auth().signOut()
+  },
   saveOrder(order, uid) {
     const orderId = firebase.database().ref('orders').push().key
     firebase.database().ref(`orders/${orderId}`).set(order)
@@ -25,28 +38,14 @@ export default {
     const { id: restaurantId } = restaurant
     firebase.database().ref(`restaurants/${restaurantId}`).set(restaurant)
   },
-  getOrders(callback) {
-    const orders = firebase.database().ref(`/orders`)
-    orders.once('value', (snapshot) => {
-      callback(snapshot.val())
-    })
-  },
-  getUserData(uid, callback) {
-    const user = firebase.database().ref(`users/${uid}`)
-    user.once('value', (snapshot) => {
-      callback(snapshot.val())
-    })
-  },
-  getRestaurants(callback) {
-    const restaurants = firebase.database().ref('restaurants')
-    restaurants.once('value', (snapshot) => {
-      callback(snapshot.val())
-    })
-  },
   watchData(data, callback) {
     const ref = firebase.database().ref(data)
     ref.on('child_added', (snapshot) => {
       callback(snapshot.key, snapshot.val())
     }) 
+
+    ref.on('child_changed', (snapshot) => {
+      callback(snapshot.key, snapshot.val())
+    })
   },
 }

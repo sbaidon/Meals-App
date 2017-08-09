@@ -10,7 +10,8 @@ Vue.use(Vuex)
 const state = {
   user: {},
   orders: {}, 
-  restaurants: {}
+  restaurants: {},
+  errors: [] 
 }
 
 export default new Vuex.Store({
