@@ -29,6 +29,14 @@
         </span>
 				</p>
 			</div>
+			<div class="field" v-if="isNewUser" >
+				<p class="control has-icons-left">
+					<input class="input" type="password" v-model="repeatPassword" placeholder="Repeat Password">
+					<span class="icon is-small is-left">
+        <i class="fa fa-lock"></i>
+        </span>
+				</p>
+			</div>
 			<div class="field" v-if="!isNewUser">
 				<button class="button is-success" @click.prevent="login(email, password)">Login</button>
 			</div>
@@ -38,8 +46,8 @@
 			<div class="field" v-if="!isNewUser">
 				<button class="button is-info" @click="githubLogin()">Github</button>
 			</div>
-			<div class="field">
-				<button class="button is-info" v-if="isNewUser" @click="signup(email, password, name)">Signup</button>
+			<div class="field" v-if="isNewUser">
+				<button class="button is-info" @click="signup(email, password, name)">Signup</button>
 			</div>
 			<span> {{ accountMessage }} 
         <a @click="isNewUser = !isNewUser" v-text="isNewUser ? 'Login' : 'Sign Up' "></a>
@@ -55,21 +63,23 @@ export default {
 	data() {
 		return {
       isNewUser: false,
-      password: '',
+			password: '',
+			repeatPassword: '',
       email: '',
       name: '',
 		}
 	},
 	computed: {
-		mode() {
-			return this.isNewUser ? 'Sign Up' : 'Login'
-		},
 		accountMessage() {
 			return this.isNewUser ? 'Already have an account?' : "Dont't have an account?"
 		},
+		match() {
+      return this.password === this.repeatPassword
+		}
 	},
 	methods: {
 		login(email, password) {
+			if(!email || !password) return this.$store.commit('PUSH_ERROR', 'Please fill in all the fields') 
       this.$store.dispatch('login', { email, password })
       .then(() => this.$router.push('/home'))
 		},
@@ -82,6 +92,8 @@ export default {
       .then(() => this.$router.push('/home'))
 		},
 		signup(email, password, name) {
+			if(!email || !password || !name) return this.$store.commit('PUSH_ERROR', 'Please fill in all the fields')
+			if (!this.match) return this.$store.commit('PUSH_ERROR', "The passwords don't match ")
 			this.$store.dispatch('signup', { email, password, name })
 			.then(() => this.$router.push('/home'))
 		}
