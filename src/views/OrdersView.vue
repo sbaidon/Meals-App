@@ -2,27 +2,30 @@
 <template>
   <div class="orders container">
     <order v-for="(order, index) in displayedOrders" :order="order" :key="index">
-      <p class="control" v-if="!hasAddedMeal(order.meals)" @click="addMeal(order)">
+      <div slot="tags" class="control tags">
+        <span v-if="hasAddedMeal(order.meals)" class="tag is-primary">Meal Added</span>
+      </div>
+      <p slot="controls" v-if="!hasAddedMeal(order.meals) && !isOrderFinalized(order.status)" class="control"  @click="addMeal(order)">
         <span class="icon is-small"><i class="fa fa-plus"></i></span>
       </p>
     </order>
-      <modal v-if="isModalOpen" @closeModal="handleCloseModal">
-        <div class="field column is-6">
-          <label class="label has-text-white">Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Name" v-model="name">
-          </div>
+    <modal v-if="isModalOpen" @closeModal="handleCloseModal">
+      <div class="field column is-6">
+        <label class="label has-text-white">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Name" v-model="name">
         </div>
-        <div class="field column is-6">
-          <label class="label has-text-white">Price</label>
-          <div class="control">
-            <input class="input" type="number" placeholder="Price" v-model="price">
-          </div>
+      </div>
+      <div class="field column is-6">
+        <label class="label has-text-white">Price</label>
+        <div class="control">
+          <input class="input" type="number" placeholder="Price" v-model.number="price">
         </div>
-        <div class="field column is-12 has-text-centered">
-          <a class="button is-warning is-fullwidth" @click="saveMeal(name, price)">Save Meal</a>
-        </div>
-      </modal>
+      </div>
+      <div class="field column is-12 has-text-centered">
+        <a class="button is-warning is-fullwidth" @click="saveMeal(name, price)">Save Meal</a>
+      </div>
+    </modal>
    </div>
 </template>
 
@@ -64,7 +67,7 @@ export default {
     methods: {
       addMeal(order) {
         this.isModalOpen = true
-        this.selectedOrder = order 
+        this.selectedOrder = order
       },
       isOrderFinalized(status) {
         return status === 'Finalized'

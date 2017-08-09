@@ -16,11 +16,15 @@
         </span>
         {{ restaurant.number }}
       </p>
-      <div class="tags has-addons">
-        <span class="tag is-primary">By</span>
-        <span class="tag is-secondary">{{ order.by }}</span>
-      </div>
     </div>
+    <div class="field is-grouped is-grouped-multiline">
+      <div class="control tags has-addons">
+        <span class="tag is-primary">Total</span>
+        <span class="tag is-secondary">${{ totalAmount }}</span>
+      </div>
+      <slot name="tags"></slot> 
+    </div>
+      
     <div class="field is-grouped is-grouped-multiline">
       <div class="control select is-small">
         <select class="select is-small" @change="updateOrder" :disabled="isFinalized">
@@ -30,15 +34,31 @@
       <p class="control" @click="isExpanded = !isExpanded" v-if="order.meals">
         <span class="icon is-small"><i class="fa fa-expand"></i></span>
       </p>
-      <slot></slot>
+      <slot name="controls"></slot>
     </div>
-    
-    
-
-
-    
-    <meal v-for="(meal, index) in order.meals" :meal="meal" :key="index" v-if="isExpanded"></meal>
+    <meal v-for="(meal, index) in order.meals" :meal="meal" :key="index" v-if="isExpanded">
+      <p v-if="by === meal.by && !isFinalized" slot="controls" class="control" @click="selectMeal(index)">
+        <span class="icon is-small"><i class="fa fa-edit"></i></span>
+      </p>
+    </meal>
   </div>
+  <modal v-if="isModalOpen" @closeModal="handleCloseModal">
+    <div class="field column is-6">
+        <label class="label has-text-white">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Name" v-model="selectedMeal.name">
+        </div>
+      </div>
+      <div class="field column is-6">
+        <label class="label has-text-white">Price</label>
+        <div class="control">
+          <input class="input" type="number" placeholder="Price" v-model.number="selectedMeal.price">
+        </div>
+      </div>
+      <div class="field column is-12 has-text-centered">
+        <a class="button is-warning is-fullwidth" @click="updateMeal()">Update Meal</a>
+      </div>
+  </modal>
 </article>
 </template>
 
@@ -55,6 +75,7 @@ export default {
       isModalOpen: false,
       defaultImage: 'http://bulma.io/images/placeholders/128x128.png',
       statuses: ['Ordered', 'Delivered', 'Finalized'],
+      selectedMeal: { price: 0, name: '', by: '' }
     }
   },
   props: {
@@ -72,15 +93,39 @@ export default {
     disabled() {
       return this.isFinalized ? 'is-disabled' : ''
     },
+    totalAmount() {
+      if (this.order.meals) {
+        return this.order.meals.map(meal => meal.price).reduce((a, b) => a + b)
+      }
+      return 0
+    },
+    by() {
+      return this.$store.state.user.email
+    }
   },
   methods: {
     updateOrder(e) {
       const updatedOrder = {}
       Object.assign(updatedOrder, this.order)
       updatedOrder.status = e.target.value
-      this.$store.dispatch('updateOrder', {
-        order: updatedOrder
-      })
+      this.$store.dispatch('updateOrder', { order: updatedOrder })
+    },
+    handleCloseModal() {
+      this.isModalOpen = false
+      this.selectedMeal = { price: 0, name: '', by: '' } 
+    },
+    selectMeal(index) {
+      this.isModalOpen = true 
+      Object.assign(this.selectedMeal, this.order.meals[index])
+      this.selectedIndex = index
+    },
+    updateMeal() {
+      const updatedOrder = {}
+      Object.assign(updatedOrder, this.order)
+      updatedOrder.meals = [...this.order.meals] 
+      updatedOrder.meals.splice(this.selectedIndex, 1, this.selectedMeal)
+      this.$store.dispatch('updateOrder', { order: updatedOrder })
+      this.handleCloseModal()
     }
   }
 }
