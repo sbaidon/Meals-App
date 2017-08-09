@@ -1,10 +1,11 @@
 <template>
   <div class="container is-fluid">
     <div class="navbar columns is-marginless is-mobile">
-      <div class="column is-narrow">
-        <figure class="image is-64x64">
+      <div class="column is-narrow has-text-centered">
+        <figure class="image is-64x64 is-centered">
           <img class="image--round" :src="user.photoURL || defaultProfile">
         </figure>
+        <p>{{ user.displayName }}</p>
       </div>
       <div class="column has-text-right">
         <a class="button is-danger" @click="logout">Logout</a>
@@ -94,4 +95,8 @@ export default {
 <style lang='sass'>
 .image--round 
   border-radius: 50%
+
+.is-centered
+  margin-right: auto
+  margin-left: auto
 </style>
