@@ -1,10 +1,10 @@
 
 <template>
-  <div class="section">
-    <order v-for="(order, index) in allOrders" :order="order" :key="index">
-      <a class="level-item" @click="addMeal(order)">
+  <div class="orders container">
+    <order v-for="(order, index) in displayedOrders" :order="order" :key="index">
+      <p class="control" v-if="!hasAddedMeal(order.meals)" @click="addMeal(order)">
         <span class="icon is-small"><i class="fa fa-plus"></i></span>
-      </a>
+      </p>
     </order>
       <modal v-if="isModalOpen" @closeModal="handleCloseModal">
         <div class="field column is-6">
@@ -34,30 +34,44 @@ import Modal from '../components/Modal.vue'
 export default {
     name: 'OrdersView',
     components: { Order, Modal },
+    props: ['view'],
     data() {
         return {
           isModalOpen: false,
           selectedOrder: {},
           name: '',
-          price: 0
+          price: 0,
         }
     },
     computed: {
-      allOrders() {
-        return this.$store.getters.allOrders
+      activeOrders() {
+        return this.$store.getters.activeOrders
+      },
+      historyOrders() {
+        return this.$store.getters.historyOrders
       },
       by() {
         return this.$store.state.user.email
+      },
+      user() {
+        return this.$store.state.user
+      },
+      displayedOrders() {
+        return this.view === 'active' ? this.activeOrders : this.historyOrders
       }
     },
+    
     methods: {
       addMeal(order) {
-        if (order.meals && order.meals.some(meal => meal.by === this.by)) {
-          console.log('YOU ALREADY HAVE A MEAL REGISTERED')
-          return
-        }
         this.isModalOpen = true
-        this.selectedOrder = order
+        this.selectedOrder = order 
+      },
+      isOrderFinalized(status) {
+        return status === 'Finalized'
+      },
+      hasAddedMeal(meals) {
+        if (!meals) return false
+        return meals.some(meal => meal.by === this.user.email) 
       },
       handleCloseModal() {
         this.isModalOpen = false
@@ -78,5 +92,8 @@ export default {
 
 </script>
 
-<style>
+<style lang='sass'>
+   .order
+     overflow-y: scroll
+     height: 70vh 
 </style>

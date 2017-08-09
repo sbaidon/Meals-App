@@ -16,8 +16,9 @@ export default new Router({
       path: '/home',
       component: Home,
       children: [{
-          path: 'active',
-          component: OrdersView
+          path: ':view',
+          component: OrdersView,
+          props: true
       }]
     },
     {

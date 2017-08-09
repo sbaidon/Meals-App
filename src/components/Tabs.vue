@@ -22,11 +22,24 @@ export default {
       activeTab: 0
     }
   },
+  computed: {
+    lowerCaseTabs() {
+      return this.tabs.map(tab => tab.toLowerCase())
+    }
+  },
   methods: {
     isActive(tab) {
       return tab === this.activeTab
+    },
+  },
+  created() {
+    this.$router.push(`/home/${this.lowerCaseTabs[this.activeTab]}`)
+  },
+  watch: {
+    activeTab(activeTab) {
+      this.$router.push(`/home/${this.lowerCaseTabs[activeTab]}`)
     }
-  } 
+  }
 }
 </script>
 
