@@ -1,33 +1,39 @@
 <template>
   <article class="media">
+      <figure class="media-left">
+        <span class="icon">
+          <i class="fa fa-cutlery"></i>
+        </span> 
+      </figure>
+      <div class="media-content">
+      <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+          <div class="tags has-addons">
+            <span class="tag is-primary">Name</span>
+            <span class="tag is-secondary">{{ meal.name }}</span>
+          </div>
+        </div>
+
+        <div class="control">
+          <div class="tags has-addons">
+            <span class="tag is-primary">Price</span>
+            <span class="tag is-secondary">${{ meal.price }}</span>
+          </div>
+        </div>
+
+        <div class="control">
+          <div class="tags has-addons">
+            <span class="tag is-primary">By</span>
+            <span class="tag is-secondary">{{ meal.by }}</span>
+          </div>
+        </div>
+      </div> 
       <nav class="level is-mobile">
         <div class="level-left">
-            <a class="level-item">
-              <span>Name:</span> 
-            </a>
-            <a class="level-item">
-              <span class="tag is-primary is-medium">{{ meal.name }}</span>
-            </a>
-            <a class="level-item">
-              <span>Price:</span> 
-            </a>
-            <a class="level-item">
-              <span class="tag is-primary is-medium">${{ meal.price }}</span>
-            </a>
-            <a class="level-item">
-              <span>By:</span> 
-            </a>
-            <a class="level-item">
-              <span class="tag is-secondary is-medium">{{ meal.by }}</span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small"><i class="fa fa-pencil"></i></span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small"><i class="fa fa-minus-circle"></i></span>
-            </a>
+           <slot></slot> 
         </div>
       </nav>
+      </div>
     </article> 
 </template>
 

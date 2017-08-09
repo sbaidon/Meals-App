@@ -57,8 +57,8 @@ export default {
     }
   },
   mounted() {
-    this.getLocation()
     this.attachMap()
+    this.getLocation()
     this.addAutocomplete()
   },
   methods: {
@@ -66,16 +66,28 @@ export default {
       this.matches = new google.maps.places.Autocomplete(this.input, this.autocompleteOptions);
       this.matches.addListener('place_changed', () => {
         this.removeMarker()
-        this.selectedPlace = this.matches.getPlace()
-        this.createMarker(this.selectedPlace)
-        this.$emit('placeChanged', this.selectedPlace)
+        const selectedPlace = this.matches.getPlace()
+        if(this.isRestaurant(selectedPlace)) {
+          this.createMarker(selectedPlace)
+          this.$emit('placeChanged', selectedPlace)
+          return
+        }
+        this.resetInput()
+        this.$store.commit('PUSH_ERROR', 'Please select an establishment that is a restaurant')
       })
+    },
+    resetInput() {
+      this.input.value = ''
+    },
+    isRestaurant(place) {
+      return place.types.some((type) => type === 'restaurant')
     },
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.receivePosition, this.handleError)
         return
       }
+      this.$store.commit('PUSH_ERROR', 'Geolocation is not supported in the browser')
     },
     removeMarker() {
       if (this.selectedPlace) {
@@ -86,12 +98,9 @@ export default {
       const lat = place.geometry.location.lat() 
       const lng = place.geometry.location.lng()
       const location = new google.maps.LatLng(lat, lng)
-      const marker = new google.maps.Marker({
-        position: location, 
-        title: place.name,
-      });
+      const marker = new google.maps.Marker({ position: location, title: place.name, })
       marker.setMap(this.map)
-      this.map.setCenter({ lat, lng }); 
+      this.map.setCenter({ lat, lng })
       this.addInfoWindow(marker, place)
     },
     addInfoWindow(marker, place) {
@@ -126,18 +135,16 @@ export default {
       });
     },
     handleError(error) {
-      console.log(error)
+      this.$store.commit('PUSH_ERROR', error.message)
     },
     receivePosition(position) {
-      this.lat = position.position.coords.latitude
-      this.long = position.coords.longitde
+      this.lat = position.coords.latitude
+      this.long = position.coords.longitude
+      this.attachMap() 
     },
     attachMap() {
       this.map = new google.maps.Map(this.mapContainer, this.mapOptions)
     },
-    getNearbyRestaurants() {
-      this.$store.dispatch('getNearbyRestaurants')
-    }
   }
 }
 </script>
