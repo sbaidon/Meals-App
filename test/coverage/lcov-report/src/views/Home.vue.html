@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/views/Home.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/views/</a> Home.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/20</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+  &lt;div class="container is-fluid"&gt;
+    &lt;div class="navbar columns is-marginless is-mobile"&gt;
+      &lt;div class="column is-narrow has-text-centered"&gt;
+        &lt;figure class="image is-64x64 is-centered"&gt;
+          &lt;img class="image--round" :src="user.photoURL || defaultProfile"&gt;
+        &lt;/figure&gt;
+        &lt;p&gt;{{ user.displayName }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="column has-text-right"&gt;
+        &lt;a class="button is-danger" @click="logout"&gt;Logout&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;tabs :tabs="tabs"&gt;&lt;/tabs&gt;
+    &lt;div class="field control"&gt;
+      &lt;a class="button is-warning" @click="isModalOpen = true"&gt;Add a new order&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;router-view class="section"&gt;&lt;/router-view&gt;
+    &lt;modal @closeModal="handleCloseModal" v-if="isModalOpen"&gt;
+      &lt;map-view @placeChanged="setRestaurant"&gt;&lt;/map-view&gt;
+      &lt;div class="field column is-12 has-text-centered"&gt;
+        &lt;a class="button is-warning is-fullwidth" @click="submitOrder"&gt;Add Order&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/modal&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&nbsp;
+&lt;script&gt;
+import Tabs from '../components/Tabs.vue'
+import Modal from '../components/Modal.vue'
+import MapView from '../components/MapView.vue'
+import firebase from 'firebase'
+&nbsp;
+export default {
+  name: 'home',
+  components: { Tabs, Modal, MapView },
+  data () {
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      tabs: ['Active', 'History'],
+      isModalOpen: false,
+      defaultProfile: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y',
+      restaurant: undefined
+    }
+  },
+  mounted() {
+<span class="cstat-no" title="statement not covered" >    this.$store.dispatch('watchData')</span>
+  },
+  computed: {
+      user() {
+<span class="cstat-no" title="statement not covered" >        return this.$store.state.user</span>
+      },
+      order() {
+<span class="cstat-no" title="statement not covered" >        return  {</span>
+          meals: [],
+          status: 'Ordered',
+          restaurant: this.restaurant.id,
+          by: this.user.email
+        }
+      },
+  },
+  beforeRouteEnter (to, from, next) {
+<span class="cstat-no" title="statement not covered" >    if(firebase.auth().currentUser) {</span>
+<span class="cstat-no" title="statement not covered" >      next()</span>
+<span class="cstat-no" title="statement not covered" >      return</span>
+    }
+<span class="cstat-no" title="statement not covered" >    next(new Error('User must be authenticated'))</span>
+  },
+  methods: {
+    submitOrder() {
+<span class="cstat-no" title="statement not covered" >      if (!this.restaurant) <span class="cstat-no" title="statement not covered" >return this.$store.commit('PUSH_ERROR', 'Please select a restaurant') </span></span>
+<span class="cstat-no" title="statement not covered" >      this.$store.dispatch('submitOrder',  { order: this.order, restaurant: this.restaurant })</span>
+<span class="cstat-no" title="statement not covered" >      this.handleCloseModal()</span>
+    },
+    setRestaurant({ photos, formatted_address: address, id, name, international_phone_number: number }) {
+      let image = <span class="cstat-no" title="statement not covered" >''</span>
+<span class="cstat-no" title="statement not covered" >      if (photos) {</span>
+<span class="cstat-no" title="statement not covered" >        image = photos[0].getUrl({ maxWidth: 248, maxHeight: 248 })</span>
+      }
+<span class="cstat-no" title="statement not covered" >      this.restaurant = { image, address, id, name, number }</span>
+    },
+    handleCloseModal() {
+<span class="cstat-no" title="statement not covered" >      this.isModalOpen = false</span>
+<span class="cstat-no" title="statement not covered" >      this.resetOrder()</span>
+    },
+    resetOrder() {
+<span class="cstat-no" title="statement not covered" >      this.restaurant = undefined </span>
+    },
+    logout() {
+<span class="cstat-no" title="statement not covered" >      this.$store.dispatch('logout')</span>
+        .then(() =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >this.$router.push('/'))</span></span>
+    }
+  }
+}
+&lt;/script&gt;
+&nbsp;
+&lt;style lang='sass'&gt;
+.image--round 
+  border-radius: 50%
+&nbsp;
+.is-centered
+  margin-right: auto
+  margin-left: auto
+&lt;/style&gt;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Aug 10 2017 18:38:49 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
