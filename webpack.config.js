@@ -3,6 +3,11 @@ var webpack = require('webpack')
 
 require('dotenv').config({ path: 'variables.env' })
 
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -29,7 +34,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
