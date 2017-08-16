@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 require('dotenv').config({ path: 'variables.env' })
 
@@ -12,7 +13,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: 'build.js'
   },
   module: {
@@ -67,9 +68,6 @@ module.exports = {
   devtool: '#eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: "'development'",
-      },
       FIREBASE_KEY: JSON.stringify(process.env.FIREBASE_KEY),
       AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
       DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
@@ -77,6 +75,10 @@ module.exports = {
       STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET),
       MESSAGING_SENDER_ID: JSON.stringify(process.env.MESSAGING_SENDER_ID),
       GOOGLE_PLACES_KEY: JSON.stringify(process.env.GOOGLE_PLACES_KEY)
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Meals App',
+      template: 'index.html'
     })
   ]
 }
