@@ -23,7 +23,9 @@ export default {
     return {
       lat: 51.50,
       long: -0.127,
-      selectedPlace: {}
+      autocompleteOptions: {
+        types: ['establishment']
+      }
     }
   },
   computed: {
@@ -43,60 +45,25 @@ export default {
         zoom: 15
       }
     },
-    nearbyOptions() {
-      return {
-        location: this.location,
-        radius: '500',
-        type: ['restaurant']
-      }
-    },
-    autocompleteOptions() {
-      return {
-        types: ['establishment']
-      }
-    }
   },
   mounted() {
     this.attachMap()
-    this.getLocation()
     this.addAutocomplete()
   },
   methods: {
+    attachMap() {
+      this.map = new google.maps.Map(this.mapContainer, this.mapOptions)
+    },
     addAutocomplete() {
-      this.matches = new google.maps.places.Autocomplete(this.input, this.autocompleteOptions);
-      this.matches.addListener('place_changed', () => {
-        this.removeMarker()
-        const selectedPlace = this.matches.getPlace()
-        if(this.isRestaurant(selectedPlace)) {
-          this.createMarker(selectedPlace)
-          this.$emit('placeChanged', selectedPlace)
-          return
-        }
-        this.resetInput()
-        this.$store.commit('PUSH_ERROR', 'Please select an establishment that is a restaurant')
+      this.autocomplete = new google.maps.places.Autocomplete(this.input, this.autocompleteOptions);
+      this.autocomplete.addListener('place_changed', () => {
+        const place = this.autocomplete.getPlace()
+        this.setRestaurant(place)
       })
     },
-    resetInput() {
-      this.input.value = ''
-    },
-    isRestaurant(place) {
-      return place.types.some((type) => type === 'restaurant')
-    },
-    getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.receivePosition, this.handleError)
-        return
-      }
-      this.$store.commit('PUSH_ERROR', 'Geolocation is not supported in the browser')
-    },
-    removeMarker() {
-      if (this.selectedPlace) {
-        
-      }
-    },
     createMarker(place) {
-      const lat = place.geometry.location.lat() 
-      const lng = place.geometry.location.lng()
+      const lat = place.geometry.location.lat()
+      const lng = place.geometry.location.lng() 
       const location = new google.maps.LatLng(lat, lng)
       const marker = new google.maps.Marker({ position: location, title: place.name, })
       marker.setMap(this.map)
@@ -108,43 +75,44 @@ export default {
       marker.addListener('click', () => {
         infoWindow.setContent(this.getInfoWindowHtml(place));
         infoWindow.open(this.map, marker);
+        this.setRestaurant(place) 
       }) 
     },
     getInfoWindowHtml(place) {
       let image = ''
-      if (place.photos.length) {
-        image = place.photos[0].getUrl({
-          maxWidth: 248 
-        })
+      if (place.photos) {
+        image = place.photos[0].getUrl({ maxWidth: 248 })
       }
-      return `
-        <div class="popup">
-            <figure class="image is-128x128">
-              <img src="${image || ''}" alt="${place.name}"> 
-            </figure>
-            <p>${place.name}</p>
-        </div>
-      `;  
+      return `<figure class="image is-128x128">
+                <img src="${image || ''}" alt="${place.name}"> 
+              </figure>
+              <p>${place.name}</p> `;  
     },
-    getNearbyPlaces() {
-      this.service = new google.maps.places.PlacesService(this.map);
-      this.service.nearbySearch(this.nearbyOptions, (results, status) => {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          results.forEach(place => this.createMarker(place))
-        }
-      });
+    setRestaurant(place) {
+      if (!this.isRestaurant(place)) {
+        this.setInput('')
+        return this.$store.commit('PUSH_ERROR', 'Please select an establishment that is a restaurant')
+      }
+      if (!this.hasProperties(place)) {
+        this.setInput('')
+        return this.$store.commit('PUSH_ERROR', 'Restaurant is missing key information') 
+      }
+      this.createMarker(place)
+      this.$emit('placeChanged', place)
+      this.setInput(place.name)
     },
-    handleError(error) {
-      this.$store.commit('PUSH_ERROR', error.message)
+    setInput(value) {
+      this.input.value = value 
     },
-    receivePosition(position) {
-      this.lat = position.coords.latitude
-      this.long = position.coords.longitude
-      this.attachMap() 
+    isRestaurant(place) {
+      if(!place) return false
+      if(!place.types) return false
+      return place.types.some((type) => type === 'restaurant')
     },
-    attachMap() {
-      this.map = new google.maps.Map(this.mapContainer, this.mapOptions)
-    },
+    hasProperties(place) {
+      if (!place) return false
+      return place.formatted_address && place.name && place.international_phone_number
+    }
   }
 }
 </script>

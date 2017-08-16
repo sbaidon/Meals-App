@@ -53,15 +53,15 @@ export default {
 
 <style lang="sass">
 @import "~bulma/sass/utilities/initial-variables"
+@import url('https://fonts.googleapis.com/css?family=Asap');
 
-$blue: #72d0eb
 $pink: #ffb3b3
 $pink-invert: #fff
-$family-serif: "Merriweather", "Georgia", serif
+$family-sans-serif: 'Asap', serif; 
 $primary: $pink
 $primary-invert: $pink-invert
 $danger: $orange
-$family-primary: $family-serif
+$family-primary: $family-sans-serif 
 
 @import '~bulma'
 @import '~font-awesome/css/font-awesome.css'

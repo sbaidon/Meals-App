@@ -28,6 +28,7 @@ export default {
   },
   saveOrder(order, uid) {
     const orderId = firebase.database().ref('orders').push().key
+    order.id = orderId
     firebase.database().ref(`orders/${orderId}`).set(order)
     firebase.database().ref(`users/${uid}/orders/${orderId}`).set(true)
   },

@@ -56,9 +56,6 @@ export default {
       by() {
         return this.$store.state.user.email
       },
-      user() {
-        return this.$store.state.user
-      },
       displayedOrders() {
         return this.view === 'active' ? this.activeOrders : this.historyOrders
       }
@@ -74,7 +71,7 @@ export default {
       },
       hasAddedMeal(meals) {
         if (!meals) return false
-        return meals.some(meal => meal.by === this.user.email) 
+        return meals.some(meal => meal.by === this.by) 
       },
       handleCloseModal() {
         this.isModalOpen = false

@@ -1,7 +1,7 @@
 <template>
 	<section class="section">
 		<div class="container">
-			<h1 class="title" v-text="isNewUser ? 'Sign Up' : 'Login' ">Sign Up</h1>
+			<h1 id="title" class="title" v-text="isNewUser ? 'Sign Up' : 'Login' ">Sign Up</h1>
       <div class="field" v-if="isNewUser">
         <p class="control has-icons-left has-icons-right">
           <input class="input" type="text" v-model="name" placeholder="Name">
@@ -38,7 +38,7 @@
 				</p>
 			</div>
 			<div class="field" v-if="!isNewUser">
-				<button class="button is-success" @click.prevent="login(email, password)">Login</button>
+				<button class="button is-success" id="login" @click.prevent="login(email, password)">Login</button>
 			</div>
 			<div class="field" v-if="!isNewUser">
 				<button class="button is-danger" @click="googleLogin()">Google</button>
@@ -47,10 +47,10 @@
 				<button class="button is-info" @click="githubLogin()">Github</button>
 			</div>
 			<div class="field" v-if="isNewUser">
-				<button class="button is-info" @click="signup(email, password, name)">Signup</button>
+				<button class="button is-success" @click="signup(email, password, name)">Signup</button>
 			</div>
 			<span> {{ accountMessage }} 
-        <a @click="isNewUser = !isNewUser" v-text="isNewUser ? 'Login' : 'Sign Up' "></a>
+        <a id="signup" @click="isNewUser = !isNewUser" v-text="isNewUser ? 'Login' : 'Sign Up' "></a>
     </span>
 		</div>
 	</section>

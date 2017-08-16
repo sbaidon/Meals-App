@@ -1,10 +1,10 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-content columns is-multiline">
+    <div class="modal-background" id="background" @click="closeModal"></div>
+    <div class="modal-content columns is-multiline" id="slot">
       <slot></slot> 
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
+    <button class="modal-close is-large" id="close-button" @click="closeModal"></button>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     closeModal() {
-        this.$emit('closeModal')
+      this.$emit('closeModal')
     }
   }
 }

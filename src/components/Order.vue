@@ -1,6 +1,6 @@
 
 <template>
-<article class="media wrap">
+<article class="media wrap order-card">
   <figure class="media-left">
     <p class="image is-128x128 is-clipped">
       <img :src="restaurant.image || defaultImage">
@@ -105,8 +105,7 @@ export default {
   },
   methods: {
     updateOrder(e) {
-      const updatedOrder = {}
-      Object.assign(updatedOrder, this.order)
+      const updatedOrder = { ...this.order }
       updatedOrder.status = e.target.value
       this.$store.dispatch('updateOrder', { order: updatedOrder })
     },
@@ -116,12 +115,16 @@ export default {
     },
     selectMeal(index) {
       this.isModalOpen = true 
-      Object.assign(this.selectedMeal, this.order.meals[index])
+      this.selectedMeal = { ...this.order.meals[index] }
       this.selectedIndex = index
     },
+    isMealInfoComplete(meal) {
+      return meal.name && meal.price && meal.by
+    },
     updateMeal() {
-      const updatedOrder = {}
-      Object.assign(updatedOrder, this.order)
+      if(!this.isMealInfoComplete(this.selectedMeal)) return this.$store.commit('PUSH_ERROR', 'Please fill in all the fields')      
+      if(this.selectedMeal.price < 0) return this.$store.commit('PUSH_ERROR', 'Price cannot be lower than 0')
+      const updatedOrder = { ...this.order }
       updatedOrder.meals = [...this.order.meals] 
       updatedOrder.meals.splice(this.selectedIndex, 1, this.selectedMeal)
       this.$store.dispatch('updateOrder', { order: updatedOrder })
@@ -134,5 +137,7 @@ export default {
 <style lang='sass'>
   .wrap
     flex-flow: row wrap
-
+  
+  .order-card
+    padding: 20px;
 </style>

@@ -38,8 +38,8 @@ export default {
     return {
       tabs: ['Active', 'History'],
       isModalOpen: false,
-      restaurant: {},
-      defaultProfile: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y'
+      defaultProfile: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y',
+      restaurant: undefined
     }
   },
   mounted() {
@@ -67,12 +67,13 @@ export default {
   },
   methods: {
     submitOrder() {
+      if (!this.restaurant) return this.$store.commit('PUSH_ERROR', 'Please select a restaurant') 
       this.$store.dispatch('submitOrder',  { order: this.order, restaurant: this.restaurant })
       this.handleCloseModal()
     },
     setRestaurant({ photos, formatted_address: address, id, name, international_phone_number: number }) {
       let image = ''
-      if (photos.length) {
+      if (photos) {
         image = photos[0].getUrl({ maxWidth: 248, maxHeight: 248 })
       }
       this.restaurant = { image, address, id, name, number }
@@ -82,7 +83,7 @@ export default {
       this.resetOrder()
     },
     resetOrder() {
-      this.restaurant = {}
+      this.restaurant = undefined 
     },
     logout() {
       this.$store.dispatch('logout')
